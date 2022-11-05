@@ -38,7 +38,7 @@ First things first, it is best to make sure that certain configurations are set 
 * `# loadkeys us` --> sets the keyboard layout to American English
 * `# timedatectl set-timezone “Region/City”` --> sets the timezone to the correct location (e.g. `America/Chicago`)
 
-### Formatting Partitions
+### Formatting Partitions (ignore SWAPS)
 Enter fdisk with the following: `# fdisk /dev/sda`
 
 Two disks will be partitioned: **sda1** for booting in UEFI mode (an EFI system partition), and **sda2** for the root directory. First, type the command `n` to create a partition.
@@ -118,14 +118,14 @@ Just a few more things left to run before we wrap up:
 ### Boot Loader (read carefully)
 Finally, the last configuration is to install our boot loader. For this guide, we will install **GRUB** as it is considered to be the most widely used and popular. 
 
-WARNING: Please follow these instructions **carefully**. Failure to do so will result in an error message on boot and unless you know what do to, you will have to **restart** your entire installation from the beginning, such as in my case (very unfortunate!):
+*WARNING:* Please follow these instructions **carefully**. Failure to do so will result in an error message on boot and unless you know what do to, you will have to **restart** your entire installation from the beginning, such as in my case (very unfortunate!):
 
 <img width="500" alt="lsblk" src="https://media.discordapp.net/attachments/1019119382510702677/1036847382199009351/unknown.png?width=1354&height=1094"> 
 
 To install GRUB, run the following: 
 1. `# mount /dev/sda1 /mnt` --> (IMPORTANT) mounts the EFI system partition.
-2. `# grub-mkconfig -o /boot/grub/grub.cfg` --> required to enable microcode updates if using an Intel or AMD chip.
-3. `# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB` --> installs GRUB and its modules to the appropriate location.
+2. `# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB` --> installs GRUB and its modules to the appropriate location.
+3. `# grub-mkconfig -o /boot/grub/grub.cfg` --> required to enable microcode updates if using an Intel or AMD chip.
 
 ### Finally... run the following:
 * `exit` --> exits the chroot environment
@@ -139,12 +139,48 @@ If all the steps above have been done correctly, then your system should reboot 
 # Modifications
 Now that you have successfully installed Arch Linux, it's time to explore one of Arch Linux's greatest features, which is seamless **customization**. This guide will show you just a few ways you can customize your new VM to your liking.
 
-## 1. Install a compatible DE
-(todo)
-## 2. Create user accounts
-(todo)
+## 1. Create user accounts
+Create a user for yourself and Codi w/ passwords. An example with using my name:
+* `useradd -m tulsano`
+* `passwd tulsano`
+* `useradd -m codi`
+* `passwd codi` --> set to "GraceHopper1906"
+
+Then, for each user you want to grant sudo priviliges:
+* `EDITOR=nano visudo` --> file is required to be edited with visudo cmd
+* `username ALL=(ALL) ALL` --> replace username with desired user
+
+Save and exit the file. A sudo user is required for our next step of installing a Desktop Environment, which will give the VM more life!
+
+
+## 2. Install a compatible DE
+For this guide, we will install [KDE](https://kde.org/) due to its accessibility and beautiful GUI customization:
+* `pacman -Syu` --> update any outdated Arch packages, if any
+* `pacman -S xorg plasma plasma-wayland-session kde-applications` --> display server protocol necessary for KDE 
+* `reboot` --> this will reboot the system into KDE.
+
+<img width="500" alt="lsblk" src="https://media.discordapp.net/attachments/245326317090897920/1038164513054261428/image.png?width=1354&height=1094">
+
+NOTE: If you're having trouble installing KDE packages, you might have to make sure the correct services are enabled/disabled:
+* `sudo systemctl start NetworkManager.service`
+* `sudo systemctl disable dhcpcd.service`
+
 ## 3. Install a different shell
-(todo)
+By default, the terminal comes in bash shell. But you may wish to install a different shell such as zsh or fish. In our case, we will install zsh:
+1. Search up "Konsole" in the KDE. This is your terminal.
+2. `sudo pacman -S zsh` --> install zsh with pacman for Arch
+3. `zsh --version` --> verify the installation worked properly
+4. `chsh -s $(which zsh)` --> make it your default shell
+5. Restart your VM to have the changes go in effect.
+
+If the terminal prompts you enter a configuration, go ahead and configure it with the auto-complete system and default settings.
+
+TIP: You can customize your zsh shell using **Oh-My-Zsh**:
+1. `sudo pacman -S git` --> necessary for installation (will give error if not present)
+2. `sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"` --> to install Oh-My-Zsh
+3. `nano ~/.zshrc` --> enable themes here, under `ZSH_THEME` (see the full [list](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes))
+
+
 ## 4. Install and use ssh
 (todo)
 ## 5. Add color coding
@@ -155,7 +191,6 @@ Now that you have successfully installed Arch Linux, it's time to explore one of
 (todo)
 
 # Final Words
-Hopefully, you have now installed Arch Linux on your machine and implemented some of the many customizations that it has to offer! Thank you so much for using this guide! Continue to spark your creativity and best of luck in the world of CS :)
+Hopefully, you have now installed Arch Linux on your machine and implemented some of the many customizations that it has to offer. Thank you so much for using this guide! Continue to spark your creativity and best of luck in the world of CS! 🤓
 
 
-*(TODO: add final installation desktop image here)*
