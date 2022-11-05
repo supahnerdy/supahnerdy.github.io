@@ -1,13 +1,13 @@
 # CYB-3353: Arch Linux Installation (MacOS)
 Welcome to the Arch Linux Installation Documentation! This guide will go through the steps to install Arch based on the wiki instructions, as well as a few modifications that can be tweaked as desired. 
 
-Arch Linux is a distribution that is structured by its five prinicples of simplicity, modernity, pragmatism, user-centrality, and versatility. Any configurations are completely to the user's discretion.
+Arch Linux is a distribution that is structured by its five prinicples of simplicity, modernity, pragmatism, user-centrality, and versatility. Any configurations made are completely to the user's discretion.
 
 The hardware used for this installation is **VMware Fusion 12** running on **MacOS 12.5** with an **Intel** chip.
 
 
 # Installation Guide
-It is recommended that you read through and follow the installation guide on the official wiki [here](https://wiki.archlinux.org/title/installation_guide). Regardless, this section will narrow it down to what's really important for brevity and clarity. If you have any questions or are really stuck, the forums [here](https://bbs.archlinux.org/) might be of use. In the worst case scenario, deletion of the current VM and a redo of all the steps may be necessary.
+It is recommended that you read through and follow the installation guide on the official [wiki](https://wiki.archlinux.org/title/installation_guide). Regardless, this section will narrow it down to what's really important for brevity and clarity. If you have any questions or are really stuck, the [forums](https://bbs.archlinux.org/) might be of use. In the worst case scenario, deletion of the current VM and a redo of all the steps may be necessary.
 
 Also, it is recommended that you complete this section all in one sitting. If you must leave during the installation process, I suggest that you finish the step you are currently on, pause your VM, and leave your computer on standby.
 
@@ -97,7 +97,7 @@ Similarly with the previous terminal, we will make sure that certain packages ar
 * `# hwclock --systohc` --> generate the necessary /etc/adjtime file for proper function
 * `# pacman -S man-pages texinfo sudo grub grub-install nano man-db sof-firmware dosfstools amd-ucode wpa_supplicant wireless_tools networkmanager nm-connection-editor network-manager-applet` --> installs the necessary packages beforehand for proper function
 
-For more information on each of these packages, please visit the arch linux database [here](https://archlinux.org/packages/).
+For more information on each of these packages, please visit the arch linux [package database](https://archlinux.org/packages/).
 
 ### Localization
 There a few more steps required to complete the language adaptation. This will vary depending on your location/language. For the US in Central Time:
@@ -109,7 +109,6 @@ There a few more steps required to complete the language adaptation. This will v
 Before setting up the network configuration, make sure that NAT is enabled in the setttings, your interface is visible, and your machine is connected to the Internet. Odds are that you are using a dynamic IP address, so the instructions will follow suit (for brevity, use `nano` and `touch` to edit and create when necessary):
 1. Create `/etc/hostname` and input a hostname to identify the network(e.g. `twibi`)
 2. Edit `/etc/hosts` with the following: `127.0.0.1 localhost ::1 localhost 127.0.1.1 yourhostname` to resolve localhost over the network
-
 
 ### Firmware Structure
 Just a few more things left to run before we wrap up:
@@ -131,10 +130,9 @@ To install GRUB, run the following:
 * `exit` --> exits the chroot environment
 * `reboot` --> restarts the machine
 
-If all the steps above have been done correctly, then your system should reboot into Arch Linux and prompt you to login with the root user (with the password you created earlier). Congrats on completing the first section! 🥳
+If all the steps above have been done correctly, then your system should reboot into Arch Linux and prompt you to login with the root user (with the password you created earlier). Congrats on completing this first section! 🥳
 
 <img width="500" alt="lsblk" src="https://cdn.discordapp.com/attachments/364563015917502466/1038149441728806942/image.png"> 
-
 
 # Modifications
 Now that you have successfully installed Arch Linux, it's time to explore one of Arch Linux's greatest features, which is seamless **customization**. This guide will show you just a few ways you can customize your new VM to your liking.
@@ -153,11 +151,15 @@ Then, for each user you want to grant sudo priviliges:
 Save and exit the file. A sudo user is required for our next step of installing a Desktop Environment, which will give the VM more life!
 
 
-## 2. Install a compatible DE
+<img width="500" alt="lsblk" src="https://cdn.discordapp.com/attachments/364563015917502466/1038311936523239484/image.png">
+
+## 2. Install a compatible DE (and boot into it)
 For this guide, we will install [KDE](https://kde.org/) due to its accessibility and beautiful GUI customization:
 * `pacman -Syu` --> update any outdated Arch packages, if any
 * `pacman -S xorg plasma plasma-wayland-session kde-applications` --> display server protocol necessary for KDE 
 * `reboot` --> this will reboot the system into KDE.
+
+The default KDE will look like this:
 
 <img width="500" alt="lsblk" src="https://media.discordapp.net/attachments/245326317090897920/1038164513054261428/image.png?width=1354&height=1094">
 
@@ -180,17 +182,38 @@ TIP: You can customize your zsh shell using **Oh-My-Zsh**:
 2. `sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"` --> to install Oh-My-Zsh
 3. `nano ~/.zshrc` --> enable themes here, under `ZSH_THEME` (see the full [list](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes))
 
-
 ## 4. Install and use ssh
-(todo)
+It may be useful to install a tool that can provide secure encryption for remote connections. The following guides you on how to install ssh and use it to ssh into the class gateway:
+1. `pacman -Syu` --> updates the packages, if needed
+2. `pacman -S openssh` --> install ssh
+3. `systemctl status sshd` --> checks the status of ssh (will be inactive initially)
+4. `systemctl start sshd` --> set ssh to be active and check if it is active using the previous command.
+5. `ssh -p 22 sysadmin@129.244.245.111` --> used to gateway into the sysadmin class 
+
+
 ## 5. Add color coding
-(todo)
+You can add color coding by right clicking on Konsole and selecting "Edit Current Profile". Additionally, oh-my-zsh has a many themes that you can select by editing the `~/.zshrc` file and setting the `ZSH_THEME` to the name of your chosen theme. More information can be found on the [official oh-my-zsh github](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes).
+
+
+<img width="500" alt="lsblk" src="https://media.discordapp.net/attachments/364563015917502466/1038304763416154122/image.png?width=1604&height=1095">
+
 ## 6. Boot into GUI
-(todo)
+(was already addressed in #2)
 ## 7. Add .bashrc/.zshrc alisases
-(todo)
+Aliases can be useful when the commands that you end up using the most often happen to be long and tedious to type. This section will walkthrough **.zshrc** aliases since we have previously installed the zsh shell:
+
+* `nano ~/.zshrc` --> aliases will be formed in this file here.
+* `source ~/.zshrc` --> run after typing out aliases
+
+Sample Aliases:
+* `alias x ="exit"`
+* `alias -s md=code`
+* `alias -g L="| less"`
+
 
 # Final Words
-Hopefully, you have now installed Arch Linux on your machine and implemented some of the many customizations that it has to offer. Thank you so much for using this guide! Continue to spark your creativity and best of luck in the world of CS! 🤓
+Congratulations!! Hopefully, you have now installed Arch Linux on your machine and implemented some of the many customizations that it has to offer. Thank you so much for using this guide! Continue to spark your creativity and best of luck in the world of CS! 🤓
 
+<img width="500" alt="lsblk" src="https://media.discordapp.net/attachments/364563015917502466/1038293220389552188/image.png?width=1604&height=1095"><img width="500" alt="lsblk" src="https://media.discordapp.net/attachments/364563015917502466/1038293337943310427/image.png?width=1608&height=1094">
 
+written by: Tulsano Wibisono
