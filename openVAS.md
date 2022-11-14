@@ -1,6 +1,6 @@
 # CYB-3353: OpenVAS Docker (MacOS)
 
-In this guide, we will be installing Docker Desktop (w/ Docker Compose) with an OpenVAS container to run a vulnerability scan. 
+In this guide, we will be installing Docker Desktop (and Docker Compose) with an OpenVAS container to run a vulnerability scan. 
 
 The hardware used for this installation is **MacOS 12.5** with an **Intel** chip.
 
@@ -27,7 +27,7 @@ Run this command in your Terminal to install the container: `docker run -d -p 44
 Depending on your bandwidth, it may take some time to install all the NVT's (won't be able to URL into localhost until then). You can monitor this by checking the CPU usage in Activity Monitor.
 
 Eventually, the NVT's will be rebuilt and your Docker should now list the **openvas** container:
-<img width="1000" alt="openvas_container" src="https://cdn.discordapp.com/attachments/1041772637245935676/1041772658410401822/image.png">
+<img width="750" alt="openvas_container" src="https://cdn.discordapp.com/attachments/1041772637245935676/1041772658410401822/image.png">
 
 
 ## 3. Run a Vulnerability Scan
@@ -45,7 +45,7 @@ To start off, we are just going to run a basic vulnerability scan on an IP addre
 To check that the scan is running, your Activity Monitor should be displaying some CPU usage and processes. Additionally, you can change how often you want the site to refresh while it is doing the scan, which should update the status bar.
 
 When your scan is done, you should be able to see the report under the "Status" section and your graphs should update accordingly:
-<img width="1000" alt="openvas_tasks" src="https://media.discordapp.net/attachments/1041772637245935676/1041788535000268921/image.png?width=1720&height=1094">
+<img width="750" alt="openvas_tasks" src="https://media.discordapp.net/attachments/1041772637245935676/1041788535000268921/image.png?width=1720&height=1094">
 
 
 ## 4. docker-compose.yml
@@ -99,15 +99,17 @@ services:
          deck-chores.dump.interval: daily
 ```
 
-Once you are done editing this and any necessary `.conf` files, run `docker-compose up -d`.
-<img width="1000" alt="openvas_tasks" src="https://media.discordapp.net/attachments/1041772637245935676/1041811746408640613/image.png">
+Once you are done editing this and any necessary `.conf` files, run `docker-compose up -d`:
+
+
+<img width="500" alt="openvas_tasks" src="https://media.discordapp.net/attachments/1041772637245935676/1041811746408640613/image.png">
 
 
 # Final Words
 
 Thanks for using this tutorial to install OpenVAS on your machine! Hopefully you have some more knowledge about Docker, containers, and vulnerability management. 
 
-<img width="1000" alt="final_installation" src="https://media.discordapp.net/attachments/1041772637245935676/1041810333565718569/image.png?width=1720&height=1094">
+<img width="750" alt="final_installation" src="https://media.discordapp.net/attachments/1041772637245935676/1041810333565718569/image.png?width=1720&height=1094">
 
 Written by: Tulsano Wibisono
 
