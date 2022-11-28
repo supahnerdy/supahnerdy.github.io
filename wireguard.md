@@ -6,7 +6,6 @@ In addition to testing the VPN connection on a [PC/Mac](https://www.wireguard.co
 
 The hardware used for this guide is **MacOS 12.5** with an **Intel** chip, as well as an **iOS** device.
 
-
 # Installation Guide
 
 ## 1. DigitalOcean
@@ -16,7 +15,7 @@ Creating an account may require some verification steps with email. Note that yo
 
 Upon account creation, go to the **control panel**, where we will then create our **Ubuntu droplet**.
 
-<img width="1000" alt="digitalocean_cp" src="https://media.discordapp.net/attachments/1046605983734042654/1046606003367587860/image.png">
+<img width="750" alt="digitalocean_cp" src="https://media.discordapp.net/attachments/1046605983734042654/1046606003367587860/image.png">
 
 ## 2. Ubuntu 20.04 Droplet
 
@@ -28,7 +27,7 @@ Under Manage, click **Droplets**, then **Create Droplet.** Here you will customi
 
 Leave everything else as default, and press the green **Create droplet** button. When the bar has finished loading, your droplet is ready!
 
-<img width="1000" alt="droplet" src="https://cdn.discordapp.com/attachments/1046605983734042654/1046615307088838666/image.png">
+<img width="750" alt="droplet" src="https://cdn.discordapp.com/attachments/1046605983734042654/1046615307088838666/image.png">
 
 ## 3. WireGuard Server
 
@@ -88,8 +87,7 @@ Once your docker-compose.yml is ready, you can start Wireguard with the followin
 
 Your Wireguard server should be properly built after the console outputs `Creating wireguard ... done`. However, it is a good idea to verify it is up and running with the command `docker ps`.
 
-<img width="1000" alt="wg_server" src="https://cdn.discordapp.com/attachments/1046605983734042654/1046874384675115028/image.png">
-
+<img width="750" alt="wg_server" src="https://cdn.discordapp.com/attachments/1046605983734042654/1046874384675115028/image.png">
 
 ## 4. Testing the VPN w/ a Mobile Device
 We will now verify that our VPN works on a mobile device. To begin, go to [ipleak.net](https://ipleak.net/) on any web browser on your mobile device and record the current IP address.
@@ -115,8 +113,8 @@ Now, refresh the ipleak.net website. Your IP address should be now be the same a
 ## 5. Testing the VPN on a PC
 For verifying that the VPN works on our PC, we will need to access the configuration file. More than likely, it will be named `peer_pc1.conf`, and be located in `~/wireguard/config/peer_pc1`.
 
-Similarily, we should record the current IP address on our PC:
-<img width="1000" alt="ip1" src="https://cdn.discordapp.com/attachments/1046605983734042654/1046889997166465094/image.png">
+Again, we should record the current IP address on our PC:
+<img width="750" alt="ip1" src="https://cdn.discordapp.com/attachments/1046605983734042654/1046889997166465094/image.png">
 
 Now, lets access this .conf file using the console:
 1. `cd ~/wireguard/config/peer_pc1`
@@ -135,12 +133,11 @@ Finally, open the WineGuard app on your laptop:
 2. Import the **.conf file** that you just saved
 3. Click **Activate**. It should look similar to the following (again, not with things blurred out):
 
-<img width="1000" alt="ip1" src="https://media.discordapp.net/attachments/1046605983734042654/1046897038744363088/image.png?width=1538&height=1094">
+<img width="750" alt="ip1" src="https://media.discordapp.net/attachments/1046605983734042654/1046897038744363088/image.png?width=1538&height=1094">
 
-And again... when you refresh the ipleak.net website on your laptop, the IP address should be the same as the **Public IPv4 Address** from your droplet!
+Now, when you refresh the ipleak.net website on your laptop, the IP address should be the same as the **Public IPv4 Address** from your droplet! (deja vu)
 
-<img width="1000" alt="ip1" src="https://cdn.discordapp.com/attachments/1046605983734042654/1046896648816705618/image.png">
-
+<img width="750" alt="ip1" src="https://cdn.discordapp.com/attachments/1046605983734042654/1046896648816705618/image.png">
 
 # Final Words
 Thank you for using this tutorial to install a WireGuard VPN using a DigitalOcean droplet w/ Docker on your machine! Hopefully you have some more knowledge about Cloud IaaS's, VPNs, and other services. 
